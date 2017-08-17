@@ -44,12 +44,26 @@ Did you dare to touch it yet?
 |
 
 Hello IPv6!
+------------
+
+|
+
+.. image:: ./legacy-ip-only.png
+    :align: center
+    :width: 550
+
+Hello IPv6!
 -----------
 
 |
 |
 
 We've been running IPv6 in production since 2011! :-)
+
+|
+
+.. image:: ./we_are_ipv6_ready.png
+    :align: center
 
 IPv6
 ----
@@ -64,6 +78,12 @@ IPv6
 
 We are almost out of available IPv4 space, no, seriously. Yes, companies still have
 addresses to spare, but obtaining *new* addresses is almost impossible.
+
+IPv4 is 32-bits long which means we have *4,294,967,296* IPv4 addresses.
+
+IPv6 is 128-bits. That's not 4x the amount of addresses, but:
+
+**340,282,366,920,938,463,463,374,607,431,768,211,456**!
 
 No more NAT
 -----------
@@ -148,6 +168,26 @@ when looking at the network configuration inside the Instance you will see both 
        valid_lft 2591961sec preferred_lft 604761sec
     inet6 fe80::48c:baff:fe00:477/64 scope link 
        valid_lft forever preferred_lft forever
+
+POD addressing
+--------------
+Each POD gets a */64* subnet in our case. That means we have 64-bits available for addressing in that POD. (1.8446744e+19 addresses)
+
+In practice the amount of IPv6 addresses is therefor never a problem in a POD.
+
+With IPv4 we always have to find a balance between the amount of *public* IPv4 IPs we assign to a POD and the hardware resources to support it with.
+
+IPv6-Only Instances
+-------------------
+We are now also working on providing IPv6-only VMs. These VMs will still have a IPv4 address, but they will obtain a RFC1918 address which is behind NAT on our routers.
+
+Incoming connectivity to the Instance can only be done using the public IPv6 address of that Instance.
+
+We see a lot of customers running clusters where their MySQL, Redis, ElasticSearch or other tools no longer require IPv4. Only their webservers or loadbalancers still require IPv4.
+
+Using RFC1918 addresses for IPv4 in PODs we can allocate more then enough addresses in a POD to better utilize our hardware resources.
+
+We will launch these Instances later this year starting in our Amsterdam zones.
 
 Security Grouping
 -----------------
