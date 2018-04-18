@@ -1,6 +1,6 @@
 .. footer::
 
-   Building a highly available cloud with Ceph and Apache CloudStack
+   Building a highly available cloud with Ceph and Apache CloudStack - #CloudStackCephDay
 
 Building a highly available cloud with Ceph and Apache CloudStack
 #################################################################
